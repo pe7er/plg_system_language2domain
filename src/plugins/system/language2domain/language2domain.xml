@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_LANGUAGE2DOMAIN</name>
+	<author>Peter Martin</author>
+	<creationDate>January 2021</creationDate>
+	<copyright>Copyright 2016 Yireo.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>development@yireo.com</authorEmail>
+	<authorUrl>http://www.yireo.com/</authorUrl>
+	<version>1.1.0</version>
+	<description>PLG_SYSTEM_LANGUAGE2DOMAIN_DESC</description>
+
+	<files>
+		<filename plugin="language2domain">language2domain.php</filename>
+		<filename>helper.php</filename>
+		<folder>rewrite-32</folder>
+		<folder>language</folder>
+	</files>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field
+					name="bindings"
+					type="textarea"
+					rows="20"
+					cols="200"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_BINDINGS_LABEL"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_BINDINGS_DESC"
+				/>
+				<field
+					name="item_associations"
+					type="radio"
+					description="PLG_SYSTEM_LANGUAGEFILTER_FIELD_ITEM_ASSOCIATIONS_DESC"
+					label="PLG_SYSTEM_LANGUAGEFILTER_FIELD_ITEM_ASSOCIATIONS_LABEL"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="alternate_meta"
+					type="radio"
+					description="PLG_SYSTEM_LANGUAGEFILTER_FIELD_ALTERNATE_META_DESC"
+					label="PLG_SYSTEM_LANGUAGEFILTER_FIELD_ALTERNATE_META_LABEL"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="enforce_domains"
+					type="radio"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_ENFORCE_DOMAINS_DESC"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_ENFORCE_DOMAINS_LABEL"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+
+			<fieldset name="advanced">
+				<field
+					name="exclude_components"
+					type="textarea"
+					rows="20"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_EXCLUDE_COMPONENTS_LABEL"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_EXCLUDE_COMPONENTS_DESC"
+				/>
+				<field
+					name="exclude_urls"
+					type="textarea"
+					rows="20"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_EXCLUDE_URLS_LABEL"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_EXCLUDE_URLS_DESC"
+				/>
+				<field
+					name="load_buildrule"
+					type="radio"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_LOAD_BUILDRULE_DESC"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_LOAD_BUILDRULE_LABEL"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JIGNORE</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="debug"
+					type="radio"
+					description="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_DEBUG_DESC"
+					label="PLG_SYSTEM_LANGUAGE2DOMAIN_FIELD_DEBUG_LABEL"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+
+		</fields>
+	</config>
+
+	<updateservers>
+		<server type="extension" name="Language2Domain Update Site">https://raw.githubusercontent.com/pe7er/plg_system_language2domain/master/update.xml</server>
+	</updateservers>
+
+</extension>
