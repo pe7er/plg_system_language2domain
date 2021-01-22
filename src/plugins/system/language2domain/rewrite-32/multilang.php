@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\CMS\Factory;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -14,7 +16,7 @@ defined('JPATH_PLATFORM') or die;
  *
  * @package     Joomla.Libraries
  * @subpackage  Language
- * @since       2.5.4
+ * @since       1.0.0
  */
 class JLanguageMultilang
 {
@@ -24,7 +26,8 @@ class JLanguageMultilang
 	 *
 	 * @return  boolean  True if site is supporting multiple languages; false otherwise.
 	 *
-	 * @since   2.5.4
+	 * @since   1.0.0
+	 * @throws  Exception
 	 */
 	public static function isEnabled()
 	{
@@ -34,7 +37,7 @@ class JLanguageMultilang
 		}
 		elseif (defined('FALANG_J30'))
 		{
-			$menu    = JFactory::getApplication()->getMenu();
+			$menu    = Factory::getApplication()->getMenu();
 			$active  = $menu->getActive();
 			$default = $menu->getDefault();
 
@@ -51,7 +54,7 @@ class JLanguageMultilang
 		static $enabled = false;
 
 		// Get application object.
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// If being called from the front-end, we can avoid the database query.
 		if ($app->isSite())
@@ -65,9 +68,9 @@ class JLanguageMultilang
 		if (!$tested)
 		{
 			// Determine status of language filter plug-in.
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
-				->select('enabled')
+				->select($db->quoteName('enabled'))
 				->from($db->quoteName('#__extensions'))
 				->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
 				->where($db->quoteName('folder') . ' = ' . $db->quote('system'))
@@ -86,29 +89,29 @@ class JLanguageMultilang
 	 *
 	 * @return  array of language extension objects.
 	 *
-	 * @since   3.5
+	 * @since   1.0.0
 	 */
 	public static function getSiteLangs()
 	{
 		// To avoid doing duplicate database queries.
-		static $multilangSiteLangs = null;
+		static $multiLangSiteLanguages = null;
 
-		if (!isset($multilangSiteLangs))
+		if (!isset($multiLangSiteLanguages))
 		{
 			// Check for published Site Languages.
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
-				->select('element')
-				->from('#__extensions')
+				->select($db->quoteName('element'))
+				->from($db->quoteName('#__extensions'))
 				->where('type = ' . $db->quote('language'))
-				->where('client_id = 0')
-				->where('enabled = 1');
+				->where($db->quoteName('client_id') . ' = 0')
+				->where($db->quoteName('enabled') . ' = 1');
 			$db->setQuery($query);
 
-			$multilangSiteLangs = $db->loadObjectList('element');
+			$multiLangSiteLanguages = $db->loadObjectList('element');
 		}
 
-		return $multilangSiteLangs;
+		return $multiLangSiteLanguages;
 	}
 
 	/**
@@ -116,29 +119,35 @@ class JLanguageMultilang
 	 *
 	 * @return  array of menu objects.
 	 *
-	 * @since   3.5
+	 * @since   1.0.0
 	 */
 	public static function getSiteHomePages()
 	{
 		// To avoid doing duplicate database queries.
-		static $multilangSiteHomePages = null;
+		static $multiLangSiteHomePages = null;
 
-		if (!isset($multilangSiteHomePages))
+		if (!isset($multiLangSiteHomePages))
 		{
 			// Check for Home pages languages.
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
-				->select('language')
-				->select('id')
+				->select(
+					$db->quoteName(
+						[
+							'language',
+							'id'
+						]
+					)
+				)
 				->from($db->quoteName('#__menu'))
-				->where('home = 1')
-				->where('published = 1')
-				->where('client_id = 0');
+				->where($db->quoteName('home') . ' = 1')
+				->where($db->quoteName('published') . ' = 1')
+				->where($db->quoteName('client_id') . ' = 0');
 			$db->setQuery($query);
 
-			$multilangSiteHomePages = $db->loadObjectList('language');
+			$multiLangSiteHomePages = $db->loadObjectList('language');
 		}
 
-		return $multilangSiteHomePages;
+		return $multiLangSiteHomePages;
 	}
 }

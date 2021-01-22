@@ -11,11 +11,11 @@
  * @link       https://db8.nl
  */
 
+defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Version;
-
-defined('_JEXEC') or die;
 
 /**
  * Class PlgSystemLanguage2DomainHelper

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 /**
  * Utitlity class for associations in multilang
  *
@@ -31,12 +33,13 @@ class JLanguageAssociations
 	 *
 	 * @return  array                The associated items
 	 *
-	 * @since   3.1
+	 * @since   1.0.0
+	 * @throws  Exception
 	 */
 	public static function getAssociations($extension, $tablename, $context, $id, $pk = 'id', $aliasField = 'alias', $catField = 'catid')
 	{
 		$associations = array();
-		$db           = JFactory::getDbo();
+		$db           = Factory::getDbo();
 		$query        = $db->getQuery(true)
 			->select($db->quoteName('c2.language'))
 			->from($db->quoteName($tablename, 'c'))
@@ -109,11 +112,12 @@ class JLanguageAssociations
 	 *
 	 * @return  boolean  True if the parameter is implemented; false otherwise.
 	 *
-	 * @since   3.2
+	 * @since   1.0.0
 	 */
 	public static function isEnabled()
 	{
 		return true;
+
 		// Flag to avoid doing multiple database queries.
 		static $tested = false;
 
@@ -126,6 +130,7 @@ class JLanguageAssociations
 			if (!$tested)
 			{
 				$plugin = JPluginHelper::getPlugin('system', 'languagefilter');
+
 				if ($plugin)
 				{
 					$params  = new JRegistry($plugin->params);

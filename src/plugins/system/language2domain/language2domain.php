@@ -11,6 +11,8 @@
  * @link       https://db8.nl
  */
 
+defined('_JEXEC') or die;
+
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Component\ComponentHelper;
@@ -18,8 +20,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Uri\Uri;
-
-defined('_JEXEC') or die;
 
 require_once JPATH_SITE . '/plugins/system/languagefilter/languagefilter.php';
 
